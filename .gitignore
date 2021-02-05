@@ -1,7 +1,0 @@
-*.pyc
-*.svg
-.eggs/
-.vscode/
-.idea/
-docs/build/*
-*egg-info
