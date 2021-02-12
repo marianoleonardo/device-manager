@@ -31,7 +31,7 @@ pytest==4.0.0
 pytest-cov==2.6.0
 python-dateutil==2.8.1
 python-editor==1.0.4
-requests==2.18.4
+requests==2.20.0
 six==1.15.0
 SQLAlchemy==1.2.4
 typing-extensions==3.7.4.3
