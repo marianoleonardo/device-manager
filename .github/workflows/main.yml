@@ -31,6 +31,10 @@ jobs:
         pip install codecov
 
     - name: Build the stack and test
+      env:
+        DEV_MNGR_CRYPTO_PASS: "kamehameHA"
+        DEV_MNGR_CRYPTO_IV: 1234567890123456
+        DEV_MNGR_CRYPTO_SALT: "shuriken"
       run: |
         docker build -t dojot/device-manager .
         docker build -t dredd/test -f tests/Dockerfile .
@@ -38,10 +42,6 @@ jobs:
         docker-compose -p test -f tests/docker-compose.yaml run --rm test-runner
 
     - name: pytest
-      env:
-        DEV_MNGR_CRYPTO_PASS: "kamehameHA"
-        DEV_MNGR_CRYPTO_IV: 1234567890123456
-        DEV_MNGR_CRYPTO_SALT: "shuriken"
       run: |
         python3 -m pytest --cov-report=html --cov=DeviceManager tests/
 
