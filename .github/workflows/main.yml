@@ -36,11 +36,12 @@ jobs:
         DEV_MNGR_CRYPTO_IV: 1234567890123456
         DEV_MNGR_CRYPTO_SALT: "shuriken"
       run: |
-        docker build -t dojot/device-manager .
-        docker build -t dredd/test -f tests/Dockerfile .
-        docker-compose -p test -f tests/docker-compose.yaml up -d kafka data-broker postgres device-manager postgres-users
-        docker-compose -p test -f tests/docker-compose.yaml run --rm test-runner
+        'docker build -t dojot/device-manager .'
+        'docker build -t dredd/test -f tests/Dockerfile .'
+        'docker-compose -p test -f tests/docker-compose.yaml up -d kafka data-broker postgres device-manager postgres-users'
+        'docker-compose -p test -f tests/docker-compose.yaml run --rm test-runner'
         python3 -m pytest --cov-report=html --cov=DeviceManager tests/
+        coverage run -m pytest tests && coverage xml
 
     # - name: pytest
     #   env:
@@ -49,6 +50,12 @@ jobs:
     #     DEV_MNGR_CRYPTO_SALT: "shuriken"
     #   run: |
     #     python3 -m pytest --cov-report=html --cov=DeviceManager tests/
+
+
+    # docker build -t dojot/device-manager .
+    # docker build -t dredd/test -f tests/Dockerfile .
+    # docker-compose -p test -f tests/docker-compose.yaml up -d kafka data-broker postgres device-manager postgres-users
+    # docker-compose -p test -f tests/docker-compose.yaml run --rm test-runner
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
