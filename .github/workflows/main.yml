@@ -30,6 +30,14 @@ jobs:
         pip install pip==19.0.3 -r tests/requirements.txt
         pip install codecov
 
+    - name: node modules cache
+      uses: actions/cache@v2
+      with:
+        path: ~/.node_modules
+        key: node_modules-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: node_modules-
+
+
     - name: Build the stack and test
       env:
         DEV_MNGR_CRYPTO_PASS: "kamehameHA"
@@ -51,11 +59,6 @@ jobs:
     #   run: |
     #     python3 -m pytest --cov-report=html --cov=DeviceManager tests/
 
-
-    # docker build -t dojot/device-manager .
-    # docker build -t dredd/test -f tests/Dockerfile .
-    # docker-compose -p test -f tests/docker-compose.yaml up -d kafka data-broker postgres device-manager postgres-users
-    # docker-compose -p test -f tests/docker-compose.yaml run --rm test-runner
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
