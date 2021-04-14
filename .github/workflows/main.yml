@@ -40,19 +40,20 @@ jobs:
         docker build -t dredd/test -f tests/Dockerfile .
         docker-compose -p test -f tests/docker-compose.yaml up -d kafka data-broker postgres device-manager postgres-users
         docker-compose -p test -f tests/docker-compose.yaml run --rm test-runner
-
-    - name: pytest
-      env:
-        DEV_MNGR_CRYPTO_PASS: "kamehameHA"
-        DEV_MNGR_CRYPTO_IV: 1234567890123456
-        DEV_MNGR_CRYPTO_SALT: "shuriken"
-      run: |
         python3 -m pytest --cov-report=html --cov=DeviceManager tests/
+
+    # - name: pytest
+    #   env:
+    #     DEV_MNGR_CRYPTO_PASS: "kamehameHA"
+    #     DEV_MNGR_CRYPTO_IV: 1234567890123456
+    #     DEV_MNGR_CRYPTO_SALT: "shuriken"
+    #   run: |
+    #     python3 -m pytest --cov-report=html --cov=DeviceManager tests/
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
       with:
-        file: connector/mqtt/locust/coverage.xml
+        file: coverage.xml
         flags: Device-manager
         name: device-manager
 
