@@ -38,10 +38,6 @@ jobs:
 
 
     - name: Build the stack and test
-      env:
-        DEV_MNGR_CRYPTO_PASS: "kamehameHA"
-        DEV_MNGR_CRYPTO_IV: 1234567890123456
-        DEV_MNGR_CRYPTO_SALT: "shuriken"
       run: |
         docker build -t dojot/device-manager .
         docker build -t dredd/test -f tests/Dockerfile .
